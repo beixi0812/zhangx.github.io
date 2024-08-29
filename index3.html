@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <audio autoplay controls loop>
+      <source src="/M800004ZDE6B1GTv9S.mp3" type="audio/ogg" />
+    </audio>
+    <div class="box">
+      <button id="btn">play</button>
+      <div class="puzzle" id="puzzle">
+        <div
+          class="item item0"
+          data-num="0"
+          style="left: 2px; top: 2px; background-position: 0px 0px"
+        ></div>
+        <div
+          class="item item1"
+          data-num="1"
+          style="left: 104px; top: 2px; background-position: -100px 0px"
+        ></div>
+        <div
+          class="item item2"
+          data-num="2"
+          style="left: 206px; top: 2px; background-position: -200px 0px"
+        ></div>
+        <div
+          class="item item3"
+          data-num="3"
+          style="left: 2px; top: 104px; background-position: 0px -100px"
+        ></div>
+        <div
+          class="item item4"
+          data-num="4"
+          style="left: 104px; top: 104px; background-position: -100px -100px"
+        ></div>
+        <div
+          class="item item5"
+          data-num="5"
+          style="left: 206px; top: 104px; background-position: -200px -100px"
+        ></div>
+        <div
+          class="item item6"
+          data-num="6"
+          style="left: 2px; top: 206px; background-position: 0px -200px"
+        ></div>
+        <div
+          class="item item7"
+          data-num="7"
+          style="left: 104px; top: 206px; background-position: -100px -200px"
+        ></div>
+        <div
+          class="item item8"
+          data-num="8"
+          style="left: 206px; top: 206px; background-position: -200px -200px"
+        ></div>
+      </div>
+    </div>
+    <div class="mask" id="mask">
+      <div class="sucbox">
+        <div class="animated tada">完成</div>
+        <button class="again">继续</button>
+      </div>
+    </div>
+    <!-- 下一页 -->
+    <div style="text-align: center; margin-top: 20px">
+      <img
+        src="img/上一页.png"
+        alt=""
+        style="width: 60px; height: 60px"
+        id="nextTo"
+      />
+      <a href="./index2.html"
+        ><p style="font-size: 18px; color: skyblue">上一页</p></a
+      >
+    </div>
+  </body>
+</html>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #fdf5e6;
+  }
+  .box {
+    width: 100%;
+    text-align: center;
+  }
+  .box h2 {
+    margin: 20px;
+  }
+  .box button {
+    width: 50px;
+    height: 30px;
+    background-color: #1e90ff;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .puzzle {
+    position: relative;
+    width: 308px;
+    height: 308px;
+    margin: 0 auto;
+    border: 3px solid #ccc;
+    box-shadow: 0 0 10px #ddd;
+  }
+  .item {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-image: url(img/1.jpg);
+    background-repeat: no-repeat;
+    background-size: 300% 300%;
+    transition: all 0.5s;
+  }
+  .mask {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .mask .sucbox {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+  }
+  .tada {
+    margin-left: -50px;
+    width: 100px;
+    height: 50px;
+    background-color: pink;
+    border-radius: 10px;
+    font-size: 24px;
+    line-height: 50px;
+    text-align: center;
+  }
+  .again {
+    width: 100px;
+    height: 30px;
+    margin-top: 50px;
+    margin-left: -50px;
+    font-size: 20px;
+  }
+</style>
+<script>
+  document.getElementById("nextTo").addEventListener("click", function () {
+    window.location.href = "/index2.html";
+  });
+  var puzzle = document.getElementById("puzzle");
+  var items = puzzle.querySelectorAll(".item");
+  var btn = document.getElementById("btn");
+  var mask = document.getElementById("mask");
+  var again = mask.querySelector(".again");
+  var info = {
+    left: 0,
+    top: 0,
+    x: 0,
+    y: 0,
+  };
+  again.addEventListener("touchend", function () {
+    mask.style.display = "none";
+  });
+  // 点击play按钮，打乱图片顺序
+  btn.addEventListener("touchstart", function () {
+    for (var i = 1; i < 20; i++) {
+      // 随机获取20组0-9的数字
+      // 让它们互相更换位置
+      var a = Math.floor(Math.random() * 1000) % 9;
+      var b = Math.floor(Math.random() * 1000) % 9;
+      if (a != b) {
+        var _left = items[a].style.left;
+        items[a].style.left = items[b].style.left;
+        items[b].style.left = _left;
+
+        var _top = items[a].style.top;
+        items[a].style.top = items[b].style.top;
+        items[b].style.top = _top;
+
+        // 更换编号
+        var _num = items[a].getAttribute("data-num");
+        items[a].setAttribute("data-num", items[b].getAttribute("data-num"));
+        items[b].setAttribute("data-num", _num);
+      }
+    }
+  });
+  for (var i = 0; i < items.length; i++) {
+    // 手指按下时，获取初始值
+    items[i].addEventListener("touchstart", function (e) {
+      info.left = parseInt(this.style.left);
+      info.top = parseInt(this.style.top);
+      info.x = e.targetTouches[0].pageX;
+      info.y = e.targetTouches[0].pageY;
+      // 保存每张图片原来的left和top
+      // 用于交换图片时用
+      this.iniLeft = info.left;
+      this.iniTop = info.top;
+      this.style.transition = "none";
+    });
+    // 滑动时，改变图片的left和top
+    items[i].addEventListener("touchmove", function (e) {
+      this.style["z-index"] = 99;
+      this.style.left = info.left - info.x + e.targetTouches[0].pageX + "px";
+      this.style.top = info.top - info.y + e.targetTouches[0].pageY + "px";
+    });
+    // 手指抬起时，更换两张图片位置
+    items[i].addEventListener("touchend", function (e) {
+      this.style["z-index"] = 0;
+      var x = e.changedTouches[0].pageX - puzzle.offsetLeft;
+      var y = e.changedTouches[0].pageY - puzzle.offsetTop;
+      var target = find(this, x, y);
+      if (target === this) {
+        target.style.top = target.iniTop + "px";
+        target.style.left = target.iniLeft + "px";
+      } else {
+        exchange(this, target);
+        if (isOk()) {
+          setTimeout(function () {
+            mask.style.display = "block";
+          }, 1000);
+        }
+      }
+      this.style.transition = "all .5s";
+    });
+  }
+  // 两个图片互相交换，即交换它们的left和top
+  function exchange(a, b) {
+    var _top = a.iniTop;
+    a.style.top = b.style.top;
+    b.style.top = _top + "px";
+
+    var _left = a.iniLeft;
+    a.style.left = b.style.left;
+    b.style.left = _left + "px";
+    var _num = a.getAttribute("data-num");
+    a.setAttribute("data-num", b.getAttribute("data-num"));
+    b.setAttribute("data-num", _num);
+  }
+  // 移动一张图片，找到要更换的目标图片
+  // 根据鼠标的x，y值所在的范围去确定目标图片
+  function find(obj, x, y) {
+    for (var i = 0; i < items.length; i++) {
+      if (obj != items[i]) {
+        var _left = parseInt(items[i].style.left);
+        var _top = parseInt(items[i].style.top);
+        var c1 = x >= _left && x < _left + 100;
+        var c2 = y >= _top && y < _top + 100;
+        if (c1 && c2) {
+          return items[i];
+        }
+      }
+    }
+    return obj;
+  }
+  function isOk() {
+    var str = "";
+    for (var i = 0; i < items.length; i++) {
+      str += items[i].getAttribute("data-num");
+    }
+    return str == "012345678";
+  }
+  document.addEventListener("touchstart", function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+  });
+</script>
