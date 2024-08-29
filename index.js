@@ -30,7 +30,4 @@ window.onload = function () {
         square.setAttribute('class', flage);
     }
 }
-document.getElementById('nextTo').addEventListener('click', function () {
-    window.location.href = '/index2.html';
-})
 

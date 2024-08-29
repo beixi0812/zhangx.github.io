@@ -7,7 +7,7 @@
   </head>
   <body>
     <audio autoplay controls loop>
-      <source src="/M800004ZDE6B1GTv9S.mp3" type="audio/ogg" />
+      <source src="./img/M800004ZDE6B1GTv9S.mp3" type="audio/ogg" />
     </audio>
     <div class="box">
       <button id="btn">play</button>
@@ -67,14 +67,14 @@
     </div>
     <!-- 下一页 -->
     <div style="text-align: center; margin-top: 20px">
-      <img
-        src="img/上一页.png"
-        alt=""
-        style="width: 60px; height: 60px"
-        id="nextTo"
-      />
       <a href="./index2.html"
-        ><p style="font-size: 18px; color: skyblue">上一页</p></a
+        ><img
+          src="img/上一页.png"
+          alt=""
+          style="width: 60px; height: 60px"
+          id="nextTo"
+        />
+        <p style="font-size: 18px; color: skyblue">上一页</p></a
       >
     </div>
   </body>
@@ -155,9 +155,6 @@
   }
 </style>
 <script>
-  document.getElementById("nextTo").addEventListener("click", function () {
-    window.location.href = "/index2.html";
-  });
   var puzzle = document.getElementById("puzzle");
   var items = puzzle.querySelectorAll(".item");
   var btn = document.getElementById("btn");
